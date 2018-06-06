@@ -21,6 +21,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.content.Context;
 
 public class ArticleActivity extends AppCompatActivity
         implements LoaderCallbacks<List<Article>> {
