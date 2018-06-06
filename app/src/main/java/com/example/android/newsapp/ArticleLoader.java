@@ -23,9 +23,6 @@ public class ArticleLoader extends AsyncTaskLoader<List<Article>> {
         forceLoad();
     }
 
-    /**
-     * This is on a background thread.
-     */
     @Override
     public List<Article> loadInBackground() {
         if (mUrl == null) {
