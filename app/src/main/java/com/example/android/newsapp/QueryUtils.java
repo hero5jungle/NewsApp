@@ -127,7 +127,7 @@ public final class QueryUtils {
             // Create a JSONObject from the JSON response string
             JSONObject baseJsonResponse = new JSONObject(articleJSON);
 
-            JSONArray articleArray = baseJsonResponse.getJSONArray("features");
+            JSONArray articleArray = baseJsonResponse.getJSONArray("response");
 
             for (int i = 0; i < articleArray.length(); i++) {
 

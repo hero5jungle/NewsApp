@@ -99,9 +99,6 @@ public class ArticleActivity extends AppCompatActivity
         Uri baseUri = Uri.parse(GUARDIAN_REQUEST_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
-        uriBuilder.appendQueryParameter("format", "json");
-        uriBuilder.appendQueryParameter("order-by", "newest");
-
         return new ArticleLoader(this, uriBuilder.toString());
     }
 
