@@ -7,6 +7,13 @@ public class Article {
     private String mDate;
     private String mUrl;
 
+    public Article(String section, String title, String date, String url){
+        mSection = section;
+        mTitle = title;
+        mDate = date;
+        mUrl = url;
+    }
+
     public Article(String section, String title, String author, String date, String url){
         mSection = section;
         mTitle = title;
