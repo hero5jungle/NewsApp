@@ -138,13 +138,13 @@ public final class QueryUtils {
                 String url = currentArticle.getString("webUrl");
                 /* Get the author name */
                 JSONArray tags = currentArticle.getJSONArray("tags");
-                String author = "author name not found";
+                String author = "no author name";
                 if (tags != null && tags.length() > 0) {
                     author = tags.getJSONObject(0).getString("webTitle");
                     Article article = new Article(section, title, author, date, url);
                     articles.add(article);
                 } else {
-                    Article article = new Article(section, title, date, url);
+                    Article article = new Article(section, title, author, date, url);
                     articles.add(article);
                 }
             }
