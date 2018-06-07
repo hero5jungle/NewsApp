@@ -127,21 +127,20 @@ public final class QueryUtils {
             // Create a JSONObject from the JSON response string
             JSONObject baseJsonResponse = new JSONObject(articleJSON);
 
-            JSONArray articleArray = baseJsonResponse.getJSONArray("response");
+            JSONObject articleObject = baseJsonResponse.getJSONObject("response");
+            JSONArray articleArray = articleObject.getJSONArray("results");
 
             for (int i = 0; i < articleArray.length(); i++) {
 
                 JSONObject currentArticle = articleArray.getJSONObject(i);
 
-                JSONObject properties = currentArticle.getJSONObject("results");
+                String section = currentArticle.getString("sectionName");
 
-                String section = properties.getString("sectionName");
+                String title = currentArticle.getString("webTitle");
 
-                String title = properties.getString("webTitle");
+                String date = currentArticle.getString("webPublicationDate");
 
-                String date = properties.getString("webPublicationDate");
-
-                String url = properties.getString("webUrl");
+                String url = currentArticle.getString("webUrl");
 
                 // and url from the JSON response.
                 Article article = new Article(section, title, date, url);

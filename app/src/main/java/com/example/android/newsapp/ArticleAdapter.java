@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 public class ArticleAdapter extends ArrayAdapter<Article> {
@@ -40,19 +42,17 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         String articleTitle = currentArticle.getmTitle();
         titleView.setText(articleTitle);
 
-        Date dateObject = new Date(currentArticle.getmDate());
-
         TextView dateView = (TextView) listItemView.findViewById(R.id.date);
         // Format the date string (i.e. "Mar 3, 1984")
-        String formattedDate = formatDate(dateObject);
+        String formattedDate = sliceDate(currentArticle.getmDate(), 10);
         dateView.setText(formattedDate);
 
         return listItemView;
     }
 
-    private String formatDate(Date dateObject) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd, yyyy");
-        return dateFormat.format(dateObject);
+    private String sliceDate(String s, int endIndex) {
+        if (endIndex < 0) endIndex = s.length() + endIndex;
+        return s.substring(0, endIndex);
     }
 }
 
