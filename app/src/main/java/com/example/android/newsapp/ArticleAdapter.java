@@ -1,16 +1,11 @@
 package com.example.android.newsapp;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,8 +14,6 @@ import java.util.Locale;
 
 
 public class ArticleAdapter extends ArrayAdapter<Article> {
-
-    private static final String LOCATION_SEPARATOR = " of ";
 
     public ArticleAdapter(Context context, List<Article> articles) {
         super(context, 0, articles);
@@ -36,17 +29,18 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
                     R.layout.article_list_item, parent, false);
         }
 
+        /* Set the section name on the layout */
         Article currentArticle = getItem(position);
-
-        TextView articleSection = (TextView) listItemView.findViewById(R.id.section);
+        TextView articleSection = listItemView.findViewById(R.id.section);
         String sectionName = currentArticle.getmSection();
         articleSection.setText(sectionName);
 
-        TextView titleView = (TextView) listItemView.findViewById(R.id.article_title);
+        /* Set the article title on the layout */
+        TextView titleView = listItemView.findViewById(R.id.article_title);
         String articleTitle = currentArticle.getmTitle();
         titleView.setText(articleTitle);
 
-        TextView dateView = (TextView) listItemView.findViewById(R.id.date);
+        TextView dateView = listItemView.findViewById(R.id.date);
         // Format the date string (i.e. "Mar 3, 1984")
         String formattedDate = formatDate(currentArticle.getmDate());
         dateView.setText(formattedDate);
@@ -63,7 +57,7 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        String newString = new SimpleDateFormat("MM-dd-yyyy", Locale.US).format(date);
+        String newString = new SimpleDateFormat("MMM d, yyyy", Locale.US).format(date);
         return newString;
     }
 }

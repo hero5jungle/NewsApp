@@ -2,6 +2,7 @@ package com.example.android.newsapp;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
+
 import java.util.List;
 
 public class ArticleLoader extends AsyncTaskLoader<List<Article>> {
@@ -19,6 +20,7 @@ public class ArticleLoader extends AsyncTaskLoader<List<Article>> {
         forceLoad();
     }
 
+    /* Process the JSON data in the background thread */
     @Override
     public List<Article> loadInBackground() {
         if (mUrl == null) {

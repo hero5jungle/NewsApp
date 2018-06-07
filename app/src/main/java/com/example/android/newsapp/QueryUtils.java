@@ -36,9 +36,7 @@ public final class QueryUtils {
         } catch (IOException e) {
             Log.e(LOG_TAG, "Problem making the HTTP request.", e);
         }
-
         List<Article> articles = extractFeatureFromJson(jsonResponse);
-
         return articles;
     }
 
@@ -126,33 +124,27 @@ public final class QueryUtils {
 
             // Create a JSONObject from the JSON response string
             JSONObject baseJsonResponse = new JSONObject(articleJSON);
-
+            /* Traverse the JSON tree */
             JSONObject articleObject = baseJsonResponse.getJSONObject("response");
             JSONArray articleArray = articleObject.getJSONArray("results");
-
+            /* Loop through the list of articles */
             for (int i = 0; i < articleArray.length(); i++) {
-
+                /* Get the article at position i */
                 JSONObject currentArticle = articleArray.getJSONObject(i);
-
+                /*Get the parameters for the Article*/
                 String section = currentArticle.getString("sectionName");
-
                 String title = currentArticle.getString("webTitle");
-
                 String date = currentArticle.getString("webPublicationDate");
-
                 String url = currentArticle.getString("webUrl");
 
                 // and url from the JSON response.
                 Article article = new Article(section, title, date, url);
-
                 articles.add(article);
             }
 
         } catch (JSONException e) {
-
             Log.e("QueryUtils", "Problem parsing the article JSON results", e);
         }
-
         return articles;
     }
 }

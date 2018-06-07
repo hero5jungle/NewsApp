@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.content.Context;
@@ -29,7 +30,7 @@ public class ArticleActivity extends AppCompatActivity
         implements LoaderCallbacks<List<Article>> {
 
     private static final String LOG_TAG = ArticleActivity.class.getName();
-
+    /* Retrieve the API url */
     private static final String GUARDIAN_REQUEST_URL =
             "https://content.guardianapis.com/search?api-key=test";
 
@@ -42,15 +43,16 @@ public class ArticleActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.article_activity);
 
-        ListView articleListView = (ListView) findViewById(R.id.list);
-
-        mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
+        /* Set empty view */
+        ListView articleListView = findViewById(R.id.list);
+        mEmptyStateTextView = findViewById(R.id.empty_view);
         articleListView.setEmptyView(mEmptyStateTextView);
 
+        /* Attach the ArticleAdapter to the article listview */
         mAdapter = new ArticleAdapter(this, new ArrayList<Article>());
-
         articleListView.setAdapter(mAdapter);
 
+        /* Set an onClickListener on the article to open up the article on a browser */
         articleListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -79,7 +81,7 @@ public class ArticleActivity extends AppCompatActivity
         if (networkInfo != null && networkInfo.isConnected()) {
             // Get a reference to the LoaderManager, in order to interact with loaders.
             LoaderManager loaderManager = getLoaderManager();
-
+            // Start the loader
             loaderManager.initLoader(ARTICLE_LOADER_ID, null, this);
         } else {
             // Otherwise, display error
