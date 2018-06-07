@@ -1,6 +1,9 @@
 package com.example.android.newsapp;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -44,15 +48,23 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
 
         TextView dateView = (TextView) listItemView.findViewById(R.id.date);
         // Format the date string (i.e. "Mar 3, 1984")
-        String formattedDate = sliceDate(currentArticle.getmDate(), 10);
+        String formattedDate = formatDate(currentArticle.getmDate());
         dateView.setText(formattedDate);
 
         return listItemView;
     }
 
-    private String sliceDate(String s, int endIndex) {
-        if (endIndex < 0) endIndex = s.length() + endIndex;
-        return s.substring(0, endIndex);
+
+    private String formatDate(String dateString) {
+
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US).parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String newString = new SimpleDateFormat("MM-dd-yyyy", Locale.US).format(date);
+        return newString;
     }
 }
 
