@@ -32,7 +32,7 @@ public class ArticleActivity extends AppCompatActivity
     private static final String LOG_TAG = ArticleActivity.class.getName();
     /* Retrieve the API url */
     private static final String GUARDIAN_REQUEST_URL =
-            "https://content.guardianapis.com/search?api-key=test";
+            "https://content.guardianapis.com/search?&show-tags=contributor&api-key=test";
 
     private static final int ARTICLE_LOADER_ID = 1;
     private ArticleAdapter mAdapter;
@@ -93,7 +93,6 @@ public class ArticleActivity extends AppCompatActivity
             mEmptyStateTextView.setText(R.string.no_internet_connection);
         }
     }
-
 
     @Override
     public Loader<List<Article>> onCreateLoader(int i, Bundle bundle) {

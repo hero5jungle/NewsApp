@@ -136,10 +136,17 @@ public final class QueryUtils {
                 String title = currentArticle.getString("webTitle");
                 String date = currentArticle.getString("webPublicationDate");
                 String url = currentArticle.getString("webUrl");
-
-                // and url from the JSON response.
-                Article article = new Article(section, title, date, url);
-                articles.add(article);
+                /* Get the author name */
+                JSONArray tags = currentArticle.getJSONArray("tags");
+                String author = "author name not found";
+                if (tags != null && tags.length() > 0) {
+                    author = tags.getJSONObject(0).getString("webTitle");
+                    Article article = new Article(section, title, author, date, url);
+                    articles.add(article);
+                } else {
+                    Article article = new Article(section, title, date, url);
+                    articles.add(article);
+                }
             }
 
         } catch (JSONException e) {

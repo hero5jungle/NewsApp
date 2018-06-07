@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -45,9 +46,13 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         String formattedDate = formatDate(currentArticle.getmDate());
         dateView.setText(formattedDate);
 
+        /* Set the author name of the article */
+        TextView authorView = listItemView.findViewById(R.id.author);
+        String articleAuthor = currentArticle.getmAuthor();
+        authorView.setText(articleAuthor);
+
         return listItemView;
     }
-
 
     private String formatDate(String dateString) {
 
@@ -57,8 +62,7 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        String newString = new SimpleDateFormat("MMM d, yyyy", Locale.US).format(date);
-        return newString;
+        return new SimpleDateFormat("MMM d, yyyy", Locale.US).format(date);
     }
 }
 
