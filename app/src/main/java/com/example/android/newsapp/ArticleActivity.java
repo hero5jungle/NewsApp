@@ -22,10 +22,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.content.Context;
-
 public class ArticleActivity extends AppCompatActivity
         implements LoaderCallbacks<List<Article>> {
 
@@ -56,16 +52,10 @@ public class ArticleActivity extends AppCompatActivity
         articleListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                // Find the current article that was clicked on
+                // Find the article that was clicked on and launch it on a browser
                 Article currentArticle = mAdapter.getItem(position);
-
-                // Convert the String URL into a URI object (to pass into the Intent constructor)
                 Uri articleUri = Uri.parse(currentArticle.getmUrl());
-
-                // Create a new intent to view the article URI
                 Intent websiteIntent = new Intent(Intent.ACTION_VIEW, articleUri);
-
-                // Send the intent to launch a new activity
                 startActivity(websiteIntent);
             }
         });
@@ -81,24 +71,36 @@ public class ArticleActivity extends AppCompatActivity
         if (networkInfo != null && networkInfo.isConnected()) {
             // Get a reference to the LoaderManager, in order to interact with loaders.
             LoaderManager loaderManager = getLoaderManager();
-            // Start the loader
             loaderManager.initLoader(ARTICLE_LOADER_ID, null, this);
         } else {
             // Otherwise, display error
             // First, hide loading indicator so error message will be visible
             View loadingIndicator = findViewById(R.id.loading_indicator);
             loadingIndicator.setVisibility(View.GONE);
-
             // Update empty state with no connection error message
             mEmptyStateTextView.setText(R.string.no_internet_connection);
         }
     }
 
+    /* Configure the loader to process the articles */
     @Override
     public Loader<List<Article>> onCreateLoader(int i, Bundle bundle) {
 
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String orderBy = sharedPrefs.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default)
+        );
+        String filterBy = sharedPrefs.getString(
+                getString(R.string.settings_filter_by_section_key),
+                getString(R.string.settings_filter_by_section_default)
+        );
         Uri baseUri = Uri.parse(GUARDIAN_REQUEST_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
+        /* Add custom parameters */
+        uriBuilder.appendQueryParameter("orderBy", orderBy);
+        uriBuilder.appendQueryParameter("section", filterBy);
+        uriBuilder.appendQueryParameter("page-size", "25");
 
         return new ArticleLoader(this, uriBuilder.toString());
     }
@@ -108,10 +110,8 @@ public class ArticleActivity extends AppCompatActivity
         // Hide loading indicator because the data has been loaded
         View loadingIndicator = findViewById(R.id.loading_indicator);
         loadingIndicator.setVisibility(View.GONE);
-
         // Set empty state text to display "No articles found."
         mEmptyStateTextView.setText(R.string.no_article);
-
         if (articles != null && !articles.isEmpty()) {
             mAdapter.addAll(articles);
         }
@@ -119,7 +119,24 @@ public class ArticleActivity extends AppCompatActivity
 
     @Override
     public void onLoaderReset(Loader<List<Article>> loader) {
-        // Loader reset, so we can clear out our existing data.
         mAdapter.clear();
+    }
+
+    /* Set up the menu settings */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

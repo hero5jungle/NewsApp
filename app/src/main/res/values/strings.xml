@@ -2,4 +2,45 @@
     <string name="app_name">News App</string>
     <string name="no_internet_connection">No Internet Connection</string>
     <string name="no_article">No articles found.</string>
+    <string name="settings_menu_item">Settings</string>
+    <string name="settings_title">Article Settings</string>
+
+    <!-- Order-By Preference -->
+    <string name="settings_order_by_label">Order By</string>
+    <string name="settings_order_by_key" translatable="false">order-by</string>
+    <string name="settings_order_by_default" translatable="false">@string/settings_order_by_newest_value</string>
+
+    <!-- Label for order-by relevance -->
+    <string name="settings_order_by_relevance_label">Relevance</string>
+    <string name="settings_order_by_relevance_value" translatable="false">relevance</string>
+
+    <!-- Label for order-by most recent option -->
+    <string name="settings_order_by_newest_label">Newest</string>
+    <string name="settings_order_by_newest_value" translatable="false">newest</string>
+
+    <!-- Filter-By Section Preference-->
+    <string name="settings_filter_by_section_label">Filter By Section</string>
+    <string name="settings_filter_by_section_key" translatable="false">sectionName</string>
+    <string name="settings_filter_by_section_default" translatable="false">@string/settings_news_value</string>
+
+    <!-- News Section -->
+    <string name="settings_news_label">News</string>
+    <string name="settings_news_value" translatable="false">news</string>
+
+    <!-- Opinion Section -->
+    <string name="settings_opinion_label">Opinion</string>
+    <string name="settings_opinion_value" translatable="false">opinion</string>
+
+    <!-- Sport Section -->
+    <string name="settings_sport_label">Sport</string>
+    <string name="settings_sport_value" translatable="false">sport</string>
+
+    <!-- Culture Section -->
+    <string name="settings_culture_label">Culture</string>
+    <string name="settings_culture_value" translatable="false">culture</string>
+
+    <!-- Lifestyle Section -->
+    <string name="settings_lifestyle_label">Lifestyle</string>
+    <string name="settings_lifestyle_value" translatable="false">lifestyle</string>
+
 </resources>

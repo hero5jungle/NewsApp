@@ -121,7 +121,6 @@ public final class QueryUtils {
         List<Article> articles = new ArrayList<>();
 
         try {
-
             // Create a JSONObject from the JSON response string
             JSONObject baseJsonResponse = new JSONObject(articleJSON);
             /* Traverse the JSON tree */
@@ -138,15 +137,16 @@ public final class QueryUtils {
                 String url = currentArticle.getString("webUrl");
                 /* Get the author name */
                 JSONArray tags = currentArticle.getJSONArray("tags");
-                String author = "no author name";
+                String author = "author name not found";
                 if (tags != null && tags.length() > 0) {
                     author = tags.getJSONObject(0).getString("webTitle");
-                    Article article = new Article(section, title, author, date, url);
-                    articles.add(article);
-                } else {
-                    Article article = new Article(section, title, author, date, url);
-                    articles.add(article);
                 }
+                if (title.equals("Corrections and clarifications") ||
+                        author.equals("Corrections and clarifications column editor")) {
+                    continue;
+                }
+                Article article = new Article(section, title, author, date, url);
+                articles.add(article);
             }
 
         } catch (JSONException e) {

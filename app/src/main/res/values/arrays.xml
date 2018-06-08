@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Order By -->
+    <string-array name="settings_order_by_labels">
+        <item>@string/settings_order_by_relevance_label</item>
+        <item>@string/settings_order_by_newest_label</item>
+    </string-array>
+
+    <string-array name="settings_order_by_values">
+        <item>@string/settings_order_by_relevance_value</item>
+        <item>@string/settings_order_by_newest_value</item>
+    </string-array>
+
+    <!-- Filter By Section -->
+    <string-array name="settings_filter_by_section_labels">
+        <item>@string/settings_news_label</item>
+        <item>@string/settings_opinion_label</item>
+        <item>@string/settings_sport_label</item>
+        <item>@string/settings_culture_label</item>
+        <item>@string/settings_lifestyle_label</item>
+    </string-array>
+
+    <string-array name="settings_filter_by_section_values">
+        <item>@string/settings_news_value</item>
+        <item>@string/settings_opinion_value</item>
+        <item>@string/settings_sport_value</item>
+        <item>@string/settings_culture_value</item>
+        <item>@string/settings_lifestyle_value</item>
+    </string-array>
+</resources>

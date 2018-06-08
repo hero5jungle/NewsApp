@@ -50,12 +50,10 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         TextView authorView = listItemView.findViewById(R.id.author);
         String articleAuthor = currentArticle.getmAuthor();
         authorView.setText(articleAuthor);
-
         return listItemView;
     }
 
     private String formatDate(String dateString) {
-
         Date date = null;
         try {
             date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US).parse(dateString);
